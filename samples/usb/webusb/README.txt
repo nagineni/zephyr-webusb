@@ -20,12 +20,11 @@ https://wicg.github.io/webusb/
 A simple echo application to demonstrate the WebUSB enabled custom
 class driver.
 
-This sample application receives the data and echoed back to the
-WebUSB based web application (web page) running in the browser at
-host.
+This application receives the data and echoed back to the WebUSB
+based web application (web page) running in the browser at host.
 
 This application is intended for testing purposes only. For running
-real usecase, implement applications based on the WebUSB API:
+real usecase, implement applications based on the WebUSB API.
 
 Building and flashing:
 ----------------------
@@ -36,9 +35,22 @@ building and flashing the image into an Arduino 101.
 Testing with latest Google Chrome on host
 -----------------------------------------
 
-This requires latest Google Chrome and a web application based on
-WebUSB API to connect to the USB device. Follow below steps to run
-the demo on host.
+This sample application requires latest Google Chrome, a web page
+based on WebUSB API to connect to the USB device and http server
+running on localhost to serve the web page.
+
+WebUSB is a powerful new feature added to the Web and it is available
+only to secure origins. This means the web page/site that used to
+connect to the device must be served over a secure connection (HTTPS).
+
+For testing and development purposes, there is a flag in Chrome
+(--disable-webusb-security) that disables this CORS-like checks for
+origins and allow any origin to ask the user for permission to connect
+to a device. So, we use this flag to interact with the device through
+http://localhost by starting up http server on host and serving the
+web page.
+
+Follow below steps to run the demo on host:
 
 1. Run the latest dev-channel release of Google Chrome on host.
    https://www.google.com/chrome/browser/desktop/index.html?extra=devchannel

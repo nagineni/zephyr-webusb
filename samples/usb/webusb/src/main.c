@@ -198,6 +198,7 @@ void main(void)
 	/* Set the custom and vendor request handlers */
 	webusb_register_request_handlers(&req_handlers);
 
+#ifdef CONFIG_UART_LINE_CTRL
 	printf("Wait for DTR\n");
 	while (1) {
 		uart_line_ctrl_get(dev, LINE_CTRL_DTR, &dtr);
@@ -207,19 +208,8 @@ void main(void)
 	}
 	printf("DTR set, start test\n");
 
-	/* They are optional, we use them to test the interrupt endpoint */
-	ret = uart_line_ctrl_set(dev, LINE_CTRL_DCD, 1);
-	if (ret) {
-		printf("Failed to set DCD, ret code %d\n", ret);
-	}
-
-	ret = uart_line_ctrl_set(dev, LINE_CTRL_DSR, 1);
-	if (ret) {
-		printf("Failed to set DSR, ret code %d\n", ret);
-	}
-
 	/* Wait 1 sec for the host to do all settings */
-	sys_thread_busy_wait(1000000);
+	k_busy_wait(1000000);
 
 	ret = uart_line_ctrl_get(dev, LINE_CTRL_BAUD_RATE, &baudrate);
 	if (ret) {
@@ -227,6 +217,7 @@ void main(void)
 	} else {
 		printf("Baudrate detected: %d\n", baudrate);
 	}
+#endif
 
 	uart_irq_callback_set(dev, interrupt_handler);
 

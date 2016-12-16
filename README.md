@@ -13,10 +13,10 @@ Getting Started
 
 1. Make sure you are running the [latest dev-channel release of Google Chrome](https://www.google.com/chrome/browser/desktop/index.html?extra=devchannel).
 
-2. Make sure the "Experimental Web Platform Features" flag is enabled in chrome://flags/#enable-experimental-web-platform-features.
+2. Make sure "WebUSB" and "Experimental Web Platform Features" flags are enabled in chrome://flags/.
 
-Build Ashell with WebUSB
-------------------------
+Build shell with WebUSB
+-----------------------
 
 1. Confirm the [Zephyr SDK] https://www.zephyrproject.org/doc/1.4.0/getting_started/installation_linux.html#zephyr-sdk) has been installed in your system.
 
@@ -35,13 +35,11 @@ Build Ashell with WebUSB
 
    `$ cd zephyr.js`
 
-   `$ source zjs-env.sh`
+   `$ source zjs-env.sh 256`
 
    `$ make update`
 
-    `$ source deps/zephyr/zephyr-env.sh`
-
-4. Copy the zephyr/samples/usb/webusb directory from this repository into the zephyr.js/deps/zephyr/samples/usb folder in the zephyr.js project directory.
+    `$ source deps/zephyr/zephyr-env.sh 256`
 
 5. Build the 'ashell' app
 
@@ -53,4 +51,8 @@ Build Ashell with WebUSB
 
     make dfu
 
-7. When the flashing is done press the Master Reset button one more time to boot your new image. Once the device is booted, you should see a notification from Chrome: "Go to webusb-ashell.appspot.com to connect.". Click on the notification and try the demo by connecting and uploading the JS code.
+7. Stop `ModemManager` if it is running on your system:
+
+    On Ubuntu: `sudo service modemmanager stop`
+
+8. When the flashing is done press the Master Reset button one more time to boot your new image. Once the device is booted, you should see a notification from Chrome: "Go to webusb-ashell.appspot.com to connect.". Click on the notification and try the demo by connecting and uploading the JS code.
